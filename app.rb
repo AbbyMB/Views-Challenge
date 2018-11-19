@@ -34,6 +34,14 @@ def check_subviews(data, input_type, user_input, views)
     end
   end
 
+  if data["contentView"]
+    data["contentView"]["subviews"].each do |subview|
+      if subview["control"]
+        views += check_subviews(subview["control"], input_type, user_input, [] )
+      end
+    end
+  end
+
   if data["subviews"]
     data["subviews"].each do |subview|
       views += check_subviews(subview, input_type, user_input, [] )
